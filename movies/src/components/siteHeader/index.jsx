@@ -31,7 +31,7 @@ const SiteHeader = () => {
     { label: "Top Rated", path: "/movies/top-rated" },
     { label: "Trending This Week", path: "/movies/trending/week" },
     { label: "Popular!", path: "/movies/popular" },
-
+    { label: "Playlist", path: "/movies/playlist" },
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -52,7 +52,8 @@ const SiteHeader = () => {
             fontWeight: 'bold'
 
           }}>
-              🎬 TMDB Client          </Typography>
+              🎬 TMDB Client          
+          </Typography>
           <Typography variant="h6" sx={{ flexGrow: 1,
             fontStyle: 'italic',
              fontFamily: "'Poppins'",
@@ -104,7 +105,7 @@ const SiteHeader = () => {
                     color="inherit"
                     onClick={() => handleMenuSelect(opt.path)}
                     sx={{fontWeight:'bold',
-                    fontFamily: "'Poppins'"
+                    fontFamily: "'Poppins'",
                     }}
                   >
                     {opt.label}
