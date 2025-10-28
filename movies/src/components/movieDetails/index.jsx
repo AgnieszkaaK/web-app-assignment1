@@ -8,23 +8,20 @@ import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import Drawer from "@mui/material/Drawer";
-import MovieReviews from "../movieReviews"
-
-
+import MovieReviews from "../movieReviews";
 
 const root = {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    listStyle: "none",
-    padding: 1.5,
-    margin: 0,
+  display: "flex",
+  justifyContent: "center",
+  flexWrap: "wrap",
+  listStyle: "none",
+  padding: 1.5,
+  margin: 0,
 };
 const chip = { margin: 0.5 };
 
-const MovieDetails = ({ movie }) => {  // Don't miss this!
-const [drawerOpen, setDrawerOpen] = useState(false);
-
+const MovieDetails = ({ movie }) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <>
@@ -36,47 +33,95 @@ const [drawerOpen, setDrawerOpen] = useState(false);
         {movie.overview}
       </Typography>
 
-      <Paper 
-        component="ul" 
-        sx={{...root}}
-      >
+      <Paper component="ul" sx={{ ...root }}>
         <li>
-          <Chip label="Genres" sx={{...chip}} color="primary" />
+          <Chip label="Genres" sx={{ ...chip, backgroundColor: 'pink', }} />
         </li>
         {movie.genres.map((g) => (
           <li key={g.name}>
-            <Chip label={g.name} sx={{...chip}} />
+            <Chip label={g.name} sx={{ ...chip }} />
           </li>
         ))}
       </Paper>
-     <Paper component="ul" sx={{ ...root }}>
-  <li>
-    <Chip label="Production Countries" sx={{ ...chip }} color="primary" />
-  </li>
-  {movie.production_countries && movie.production_countries.map((country) => (
-    <li key={country.name}>
-      <Chip label={country.name} sx={{ ...chip }} />
-    </li>
-  ))}
-</Paper>
-            <Fab
-        color="secondary"
+
+      <Paper component="ul" sx={{ ...root }}>
+        <li>
+          <Chip label="Production Countries" sx={{ ...chip,backgroundColor: 'pink',}} />
+        </li>
+        {movie.production_countries &&
+          movie.production_countries.map((country) => (
+            <li key={country.name}>
+              <Chip label={country.name} sx={{ ...chip }} />
+            </li>
+          ))}
+      </Paper>
+
+      <Paper component="ul" sx={{ ...root,  }}>
+        <li>
+          <Chip
+            icon={<StarRate />}
+            label={`Rating: ${movie.vote_average ?? "N/A"}`}
+            sx={{ ...chip,backgroundColor: 'pink', }}
+            variant="outlined"
+          />
+        </li>
+        <li>
+          <Chip
+            icon={<AccessTimeIcon />}
+            label={`Runtime: ${movie.runtime ?? "N/A"} min`}
+            sx={{ ...chip }}
+            variant="outlined"
+          />
+        </li>
+        <li>
+          <Chip
+            icon={<MonetizationIcon />}
+            label={`Budget: ${
+              typeof movie.budget === "number"
+                ? `$${movie.budget.toLocaleString()}`
+                : "N/A"
+            }`}
+            sx={{ ...chip }}
+            variant="outlined"
+          />
+        </li>
+      </Paper>
+
+      <Fab
         variant="extended"
-        onClick={() =>setDrawerOpen(true)}
+        onClick={() => setDrawerOpen(true)}
         sx={{
-          position: 'fixed',
-          bottom: '1em',
-          right: '1em'
+          position: "fixed",
+          bottom: "1em",
+          right: "1em",
+          backgroundColor: 'pink',
         }}
       >
         <NavigationIcon />
         Reviews
       </Fab>
+
+      <Fab
+        variant="extended"
+        onClick={() => {setDrawerOpen(true) 
+        window.location.href = `/movie/${movie.id}/recommendations`; //Locates to Recommendation Table Website
+        }}
+        sx={{
+          backgroundColor: 'pink',
+          position: "fixed",
+          bottom: "1em",
+          left: "1em",
+        }}
+      >
+        <NavigationIcon />
+        Recommendations
+      </Fab>
+
       <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         <MovieReviews movie={movie} />
       </Drawer>
-
-      </>
+    </>
   );
 };
-export default MovieDetails ;
+
+export default MovieDetails;

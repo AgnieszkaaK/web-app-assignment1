@@ -148,3 +148,24 @@ export const getPopularMovies = () => {
       throw error;
     });
 };
+
+
+export const getMovieRecommendations = ({ queryKey }) => {
+  const [, idPart] = queryKey;
+  const { id, page = 1 } = idPart;
+
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json(); // keep full payload, consistent with your other functions
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
