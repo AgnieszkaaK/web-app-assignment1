@@ -58,7 +58,6 @@ const MovieDetails = ({ movie, credits }) => {
           ))}
       </Paper>
 
-      {/* Rating, Runtime, Budget */}
       <Paper component="ul" sx={{ ...root }}>
         <li>
           <Chip
