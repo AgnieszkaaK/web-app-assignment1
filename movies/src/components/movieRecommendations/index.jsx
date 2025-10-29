@@ -33,7 +33,7 @@ const recommendations = data.results;
         <TableHead>
           <TableRow>
             <TableCell>Title</TableCell>
-            <TableCell>Excerpt</TableCell>
+            <TableCell>Description</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
