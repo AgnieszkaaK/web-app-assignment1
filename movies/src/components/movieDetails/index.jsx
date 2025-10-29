@@ -20,7 +20,7 @@ const root = {
 };
 const chip = { margin: 0.5 };
 
-const MovieDetails = ({ movie }) => {
+const MovieDetails = ({ movie, credits }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -28,14 +28,13 @@ const MovieDetails = ({ movie }) => {
       <Typography variant="h5" component="h3">
         Overview
       </Typography>
-
       <Typography variant="h6" component="p">
         {movie.overview}
       </Typography>
 
       <Paper component="ul" sx={{ ...root }}>
         <li>
-          <Chip label="Genres" sx={{ ...chip, backgroundColor: 'pink', }} />
+          <Chip label="Genres" sx={{ ...chip, backgroundColor: "pink" }} />
         </li>
         {movie.genres.map((g) => (
           <li key={g.name}>
@@ -46,7 +45,10 @@ const MovieDetails = ({ movie }) => {
 
       <Paper component="ul" sx={{ ...root }}>
         <li>
-          <Chip label="Production Countries" sx={{ ...chip,backgroundColor: 'pink',}} />
+          <Chip
+            label="Production Countries"
+            sx={{ ...chip, backgroundColor: "pink" }}
+          />
         </li>
         {movie.production_countries &&
           movie.production_countries.map((country) => (
@@ -56,12 +58,13 @@ const MovieDetails = ({ movie }) => {
           ))}
       </Paper>
 
-      <Paper component="ul" sx={{ ...root,  }}>
+      {/* Rating, Runtime, Budget */}
+      <Paper component="ul" sx={{ ...root }}>
         <li>
           <Chip
             icon={<StarRate />}
             label={`Rating: ${movie.vote_average ?? "N/A"}`}
-            sx={{ ...chip,backgroundColor: 'pink', }}
+            sx={{ ...chip, backgroundColor: "pink" }}
             variant="outlined"
           />
         </li>
@@ -87,6 +90,22 @@ const MovieDetails = ({ movie }) => {
         </li>
       </Paper>
 
+      {credits && credits.cast && (
+        <Paper component="ul" sx={{ ...root }}>
+          <li>
+            <Chip label="Cast" sx={{ ...chip, backgroundColor: "pink" }} />
+          </li>
+          {credits.cast.slice(0, 10).map((actor) => (
+            <li key={actor.cast_id}>
+              <Chip
+                label={`${actor.name} as ${actor.character}`}
+                sx={{ ...chip }}
+              />
+            </li>
+          ))}
+        </Paper>
+      )}
+
       <Fab
         variant="extended"
         onClick={() => setDrawerOpen(true)}
@@ -94,7 +113,7 @@ const MovieDetails = ({ movie }) => {
           position: "fixed",
           bottom: "1em",
           right: "1em",
-          backgroundColor: 'pink',
+          backgroundColor: "pink",
         }}
       >
         <NavigationIcon />
@@ -103,11 +122,12 @@ const MovieDetails = ({ movie }) => {
 
       <Fab
         variant="extended"
-        onClick={() => {setDrawerOpen(true) 
-        window.location.href = `/movie/${movie.id}/recommendations`; //Locates to Recommendation Table Website
+        onClick={() => {
+          setDrawerOpen(true);
+          window.location.href = `/movie/${movie.id}/recommendations`;
         }}
         sx={{
-          backgroundColor: 'pink',
+          backgroundColor: "pink",
           position: "fixed",
           bottom: "1em",
           left: "1em",
